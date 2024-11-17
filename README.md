@@ -13,4 +13,6 @@ I use 2 differents "networks" in my system:
 
 - In this way i dont have to open many "Doors" in my server, everything will be pointed to my reverse proxy, and if everything is well set he can do his job.
 
- 
+ # Volumes
+ Volumes are also important to not lose your data, there are 3 different methods of using "volumes".
+
