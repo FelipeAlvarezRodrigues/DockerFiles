@@ -16,3 +16,11 @@ I use 2 differents "networks" in my system:
  # Volumes
  Volumes are also important to not lose your data, there are 3 different methods of using "volumes".
 
+ 1. Named Volumes:     - my_named_volume:/app/data
+ 2. Bind Mounts:       - /path/on/host:/app/data
+ 3. Anonymous Volumes: - /app/data
+
+ I am using "Named Volumes" in my compose files. 
+
+ These volumes are created and managed by Docker and provide an easy way to persist data beyond the containers lifecycle.
+
