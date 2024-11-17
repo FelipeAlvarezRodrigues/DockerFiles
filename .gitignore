@@ -1,0 +1,7 @@
+*.log
+*.env
+*config
+*data
+*letsencrypt
+*mysql
+

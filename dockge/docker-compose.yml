@@ -1,0 +1,21 @@
+volumes:
+  docker-volume:
+  data-volume:
+   
+networks:
+  backend:
+    external: true
+
+services:
+  dockge:
+    image: louislam/dockge:latest
+    container_name: dockge
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  # Para comunicação com o Docker socket
+      - data-volume:/app/data  # Volume externo para armazenamento de dados
+      - docker-volume:/docker  # Volume externo para os arquivos YAML do Compose
+    environment:
+      - DOCKGE_STACKS_DIR=/docker
+    networks:
+      - backend

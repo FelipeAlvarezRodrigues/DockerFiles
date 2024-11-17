@@ -1,0 +1,20 @@
+networks:
+  backend:
+    external: true
+
+volumes:
+  nodered_data:  # O nome do volume deve ser o mesmo em ambas as seções
+
+services:
+  node-red:
+    image: nodered/node-red:latest
+    container_name: node-red
+    restart: unless-stopped
+    volumes:
+      - nodered_data:/data  # Use o nome do volume definido acima
+    environment:
+      - TZ=Europe/Berlin
+      - NODE_RED_USERNAME=${NODE_RED_USERNAME}
+      - NODE_RED_PASSWORD=${NODE_RED_PASSWORD}
+    networks:
+      - backend

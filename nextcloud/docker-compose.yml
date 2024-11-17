@@ -1,0 +1,44 @@
+volumes:
+  nextcloud:
+  #nextcloud_config: # criei para o redis
+  db:
+
+networks:
+  backend:
+    external: true
+
+services:
+  db:
+    image: mariadb:10.6
+    container_name: nextcloud_db
+    networks:
+      - backend
+    restart: always
+    command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+
+  app:
+    image: nextcloud
+    container_name: nextcloud
+    networks:
+      - backend
+    restart: always
+    links:
+      - db
+    volumes:
+      - nextcloud:/var/www/html
+      #- nextcloud_config:/var/www/html/config # criei para o redis Monta o diretório de configuração local
+    environment:
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - REDIS_HOST=redis
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+

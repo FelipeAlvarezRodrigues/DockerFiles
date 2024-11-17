@@ -1,0 +1,19 @@
+volumes:
+  data:
+
+networks:
+  backend:
+    external: true
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    volumes:
+     - data:/data
+     - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    networks:
+     - backend
+
+

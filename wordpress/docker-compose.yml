@@ -1,0 +1,36 @@
+services:
+
+  wordpress:
+    image: wordpress
+    restart: always
+    container_name: wordpress
+    environment:
+      - WORDPRESS_DB_HOST=db_w
+      - WORDPRESS_DB_USER=rato
+      - WORDPRESS_DB_PASSWORD=${MYSQL_PASSWORD}
+      - WORDPRESS_DB_NAME=wordpress_db
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      - backend
+
+  db_w:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=wordpress_db
+      - MYSQL_USER=rato
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - db_w:/var/lib/mysql
+    networks:
+      - backend
+
+volumes:
+  wordpress:
+  db_w:
+
+networks:
+  backend:
+    external: true 
