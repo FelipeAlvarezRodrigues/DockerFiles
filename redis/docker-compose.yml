@@ -11,6 +11,8 @@ services:
     image: redis #The server
     container_name: redis
     restart: always
+    ports:
+      - 6379:6379
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - ALLOW_EMPTY_PASSWORD=no
@@ -20,10 +22,13 @@ services:
     command: ["redis-server", "--appendonly yes", "--maxmemory 256mb", "--maxmemory-policy allkeys-lru"]
     networks:
       - backend
+
   redis_insight:
     image: redislabs/redisinsight:latest # The GUI
     container_name: redis_insight
     restart: always
+    ports:
+      - 5540:5540
     volumes:
       - redis_insight_volume_data:/db
     environment:
@@ -31,6 +36,3 @@ services:
     # REDIS_PASSWORD=${REDIS_PASSWORD}  Verbindung über Redis_URL
     networks:
       - backend
-
-# redis 6379
-# redis_insight 5540
