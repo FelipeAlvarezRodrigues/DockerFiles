@@ -3,8 +3,8 @@ networks:
     external: true
 
 volumes:
-  nodered_data:  # O nome do volume deve ser o mesmo em ambas as seções
-
+  nodered_data:
+  
 services:
   node-red:
     image: nodered/node-red:latest
@@ -18,3 +18,5 @@ services:
       - NODE_RED_PASSWORD=${NODE_RED_PASSWORD}
     networks:
       - backend
+    ports:
+      - "1881:1880"
