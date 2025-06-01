@@ -10,6 +10,10 @@ services:
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    
+    # command is used to override the default command (CMD) defined in the containerś image
+    # start minio in server mode, use data as storage directory
+    # Configures  the web UI to tun on port 9001 
     command: server /data --console-address ":9001"
     networks:
       - datanet
@@ -17,6 +21,6 @@ services:
 
 volumes:
   minio_data:
-  
+
 networks:
   datanet:
