@@ -1,0 +1,30 @@
+services:
+  gitlab-server:
+    image: 'gitlab/gitlab-ce:latest'
+    container_name: gitlab-server
+    hostname: 'gitlab.yourdomain.com'
+    restart: unless-stopped
+    shm_size: '256m'
+    ports:
+      - '8088:80'
+    environment:
+      GITLAB_ROOT_EMAIL: ${GITLAB_ROOT_EMAIL}
+      GITLAB_ROOT_PASSWORD: ${GITLAB_ROOT_PASSWORD}
+      GITLAB_OMNIBUS_CONFIG: |
+        puma['worker_processes'] = 0 # disable cluster mode to avoid more memory usage 
+#        external_url 'https://gitlab.yourdomain.com'
+#        gitlab_rails['gitlab_shell_ssh_port'] = 8022
+#        letsencrypt['enable'] = true
+#        letsencrypt['contact_emails'] = ['admin@yourdomain.com']
+#        unicorn['worker_processes'] = 2
+#        sidekiq['max_concurrency'] = 10
+    volumes:
+      - ./gitlab/config:/etc/gitlab
+      - ./gitlab/data:/var/opt/gitlab
+      - ./gitlab/logs:/var/log/gitlab
+    networks:
+      - datanet
+
+networks:
+  datanet:
+
