@@ -9,7 +9,7 @@ services:
       - "1433:1433"
     volumes:
       - sql_data:/var/opt/mssql
-      - /var/opt/mssql/dwh_project:/var/opt/mssql/dwh_project:ro
+      - /var/opt/mssql/dwh_project:/mnt/dwh_project:ro # Mounting the DWH project directory as read-only
     restart: always
 
 volumes:
