@@ -1,12 +1,13 @@
 services:
   airflow:
-    image: rato-airflow:latest
+    image: docker:latest
     container_name: meu_airflow
     ports:
       - "8080:8080"
     volumes:
       - ./dags:/opt/airflow/dags
       - ./plugins:/opt/airflow/plugins
+      # - ./airflow:/opt/airflow  itś not working, i am loosing my variables that i save in the UI
     environment:
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
       - AIRFLOW__CORE__LOAD_EXAMPLES=False
